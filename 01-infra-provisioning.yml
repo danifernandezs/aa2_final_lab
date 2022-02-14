@@ -1,0 +1,44 @@
+
+---
+- name: Provision Openstack servers
+  hosts: localhost
+
+  tasks:
+    - name: Get control node facts from Openstack
+      os_server_info:
+        cloud: "{{ instance_cloud | default(omit) }}"
+        server: control
+      register: control_node_info
+
+#     - name: Show all gathered info
+#       debug:
+#         msg: "{{ control_node_info }}"
+
+    - name: Control node internal ip, as DNS server
+      debug:
+        msg: "{{ control_node_info.openstack_servers[0].private_v4 }}"
+
+    - name: "Create the OpenStack instances"
+      include_role:
+        name: openstack_instances
+      vars:
+        openstack_instances:
+
+# Load Balancer Instance
+
+          - name: dev-lb
+            dns: "{{ control_node_info.openstack_servers[0].private_v4 }}"
+
+# Database Instance
+
+          - name: dev-db
+            dns: "{{ control_node_info.openstack_servers[0].private_v4 }}"
+
+# App Instances
+
+          - name: dev-app1
+            dns: "{{ control_node_info.openstack_servers[0].private_v4 }}"
+
+          - name: dev-app2
+            dns: "{{ control_node_info.openstack_servers[0].private_v4 }}"
+
