@@ -1,0 +1,24 @@
+---
+# tasks file for openstack_instances
+- name: Creating instance/s
+  os_server:
+    name: "{{ instance.name | default (instance_name) }}"
+    image: "{{ instance.image | default (instance_image) }}"
+    key_name: "{{ instance.keypair | default (instance_keypair) }}"
+    flavor: "{{ instance.flavour | default (instance_flavor) }}"
+    security_groups: "{{ instance.instance_sg | default(instance_sg) }}"
+    delete_fip: yes
+    wait: yes
+    state: "{{ instance.state | default('present') }}"
+    nics:
+      - net-name: "{{ instance.int_net | default (instance_int_net) }}"
+    meta: "{{ instance.metadata | default (instance_metadata) }}"
+    userdata: |
+      #cloud-config
+      runcmd:
+        - [ sh, -c, echo "PEERDNS=no" >> /etc/sysconfig/network-scripts/ifcfg-eth0]
+        - [ sh, -c, echo "DNS1={{ instance.dns |default (8.8.8.8) }}" >> /etc/sysconfig/network-scripts/ifcfg-eth0]
+        - [ systemctl, restart, NetworkManager]
+  loop: "{{ openstack_instances }}"
+  loop_control:
+    loop_var: instance
