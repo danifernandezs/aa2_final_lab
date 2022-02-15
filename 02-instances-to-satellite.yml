@@ -1,0 +1,29 @@
+---
+- import_playbook: in-memory-inventory.yml
+
+- name: Subscribe instances to Satellite
+  hosts: all
+  gather_facts: no
+
+  vars:
+    satellite_activationkey: gpte-labs-rhel8
+    satellite_org_id: prod
+    satellite_ca_rpm: http://satellite.example.com/pub/katello-ca-consumer-latest.noarch.rpm
+
+  pre_tasks:
+    - name: Wait for instances to be reachable
+      wait_for_connection:
+
+    - name: Satellite CA RPM is available?
+      uri:
+        url: "{{ satellite_ca_rpm }}"
+      register: satellite_rpm
+      until: satellite_rpm.status == 200
+      delay: 30
+      retries: 10
+
+  tasks:
+
+    - name: "Subscribing the instances at Satellite"
+      include_role:
+        name: subscribe_to_satellite
