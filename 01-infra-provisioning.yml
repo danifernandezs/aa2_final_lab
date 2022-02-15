@@ -3,6 +3,9 @@
 - name: Provision Openstack servers
   hosts: localhost
 
+  vars:
+    GUID: "{{ lookup('env', 'GUID') | default(omit) }}"
+
   tasks:
     - name: Get control node facts from Openstack
       os_server_info:
