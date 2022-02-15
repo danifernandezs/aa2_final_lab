@@ -1,0 +1,16 @@
+---
+# tasks file for subscribe_to_satellite
+- name: Katello CA RPM
+  yum:
+    name: "{{ satellite_ca_rpm }}"
+    state: present
+    disable_gpg_check: true
+  become: true
+
+- name: Register and attach
+  redhat_subscription:
+    state: present
+    activationkey: "{{ satellite_activationkey }}"
+    org_id: "{{ satellite_org_id }}"
+    auto_attach: true
+  become: true
