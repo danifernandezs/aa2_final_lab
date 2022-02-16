@@ -1,0 +1,16 @@
+---
+- import_playbook: in-memory-inventory.yml
+
+- name: Flask app
+  hosts: app_servers
+  become: true
+  gather_facts: false
+
+  pre_tasks:
+    - name: Workarround with the hosts file
+      lineinfile:
+        path: /etc/hosts
+        line: "{{ hostvars['dev-db'].ansible_host }} appdb1"
+
+  roles:
+    - application-servers
