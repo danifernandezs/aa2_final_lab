@@ -31,17 +31,21 @@
 
           - name: dev-lb
             dns: "{{ control_node_info.openstack_servers[0].private_v4 }}"
+            metadata: "AnsibleGroup=load_balancers,deployment_name=dev"
 
 # Database Instance
 
           - name: dev-db
             dns: "{{ control_node_info.openstack_servers[0].private_v4 }}"
+            metadata: "AnsibleGroup=database_servers,deployment_name=dev"
 
 # App Instances
 
           - name: dev-app1
             dns: "{{ control_node_info.openstack_servers[0].private_v4 }}"
+            metadata: "AnsibleGroup=app_servers,deployment_name=dev"
 
           - name: dev-app2
             dns: "{{ control_node_info.openstack_servers[0].private_v4 }}"
+            metadata: "AnsibleGroup=app_servers,deployment_name=dev"
 
