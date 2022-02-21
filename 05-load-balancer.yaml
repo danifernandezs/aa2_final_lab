@@ -1,0 +1,18 @@
+---
+- import_playbook: in-memory-inventory.yml
+
+- name: Deploy Load Balancer HAProxy
+  hosts: load_balancers
+  become: true
+  gather_facts: false
+
+  pre_tasks:
+#    - name: Workarround with the hosts file
+#      lineinfile:
+#        path: /etc/hosts
+#        line: "{{ loop.index }} app{{ loop.index }}"
+#      loop: "{{ hostvars['app_servers'] }}"
+
+  roles:
+    - haproxy_lb
+

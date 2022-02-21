@@ -1,0 +1,4 @@
+---
+# defaults file for haproxy_lb
+lb_packages:
+  - haproxy

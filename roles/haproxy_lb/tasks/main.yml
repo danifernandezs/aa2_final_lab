@@ -1,0 +1,18 @@
+---
+# tasks file for haproxy_lb
+- name: Install packages
+  package:
+    name: "{{ lb_packages }}"
+    state: present
+
+- name: HAProxy configuration file
+  template:
+    src: haproxy.cfg.j2
+    dest: /etc/haproxy/haproxy.cfg
+  notify: haproxy_restart
+
+- name: Enable HAProxy
+  service:
+    name: haproxy
+    state: started
+    enabled: true
