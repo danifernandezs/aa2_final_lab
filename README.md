@@ -18,3 +18,7 @@
 ![](lab_screenshots/05-loadbalancers.png)
 ![](lab_screenshots/06-smoketests.png)
 ![](lab_screenshots/99-deleteall.png)
+# Ansible Tower Workflow Template
+![](lab_screenshots/workflowtemplate.png)
+![](lab_screenshots/workflowdiagram.png)
+![](lab_screenshots/workflowexecution.png)
