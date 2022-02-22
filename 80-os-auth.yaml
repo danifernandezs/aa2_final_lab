@@ -1,5 +1,6 @@
 - name: OS_Auth
   hosts: localhost
+  connection: local
 
   tasks:
     - name: test os_auth
