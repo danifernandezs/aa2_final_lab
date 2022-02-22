@@ -9,3 +9,12 @@
 ![All inventories](lab_screenshots/inventories.png)
 ![Control node](lab_screenshots/tolocalhost.png)
 ![Empty inventory](lab_screenshots/empty_inventory.png)
+# Ansible Tower JobTemplates
+![](lab_screenshots/00-jobtemplates.png)
+![](lab_screenshots/01-infra.png)
+![](lab_screenshots/02-satellite.png)
+![](lab_screenshots/03-database.png)
+![](lab_screenshots/04-applications.png)
+![](lab_screenshots/05-loadbalancers.png)
+![](lab_screenshots/06-smoketests.png)
+![](lab_screenshots/99-deleteall.png)
