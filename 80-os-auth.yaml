@@ -1,0 +1,7 @@
+- name: OS_Auth
+  hosts: localhost
+
+  tasks:
+    - name: test os_auth
+      os_auth:
+
